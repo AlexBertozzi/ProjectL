@@ -1,21 +1,33 @@
 #include "game.h"
+#include <SDL.h>
+
+extern int SCREENHEIGHT;
+extern int SCREENWIDTH;
+
+void Game::updateAllEntities(EntityList* _head, float mod){
+    if(_head == NULL) return;
+
+    if(!(_head->_e->update(mod))){
+        EntityList* _box = _head;
+        _head = _head->_next;
+        delete(_box);
+        updateAllEntities(_head,mod);
+    }else{
+        updateAllEntities(_head->_next,mod);
+    }
+
+    
+}
 
 void Game::loop(){
-    return;
-}
 
-void Game::foreachEntity(void (*toDo)(Entity*)){
-    if(_ELHead == nullptr){return;} 
+    float dT = (SDL_GetTicks()-lastTick)/100.0f;
+    lastTick = SDL_GetTicks();
+    
+    SDL_SetRenderDrawColor(_renderer, 0, 0, 0, 255);
+    SDL_RenderClear(_renderer);
 
-    toDo(_ELHead->_e);
+    updateAllEntities(_ELHead,dT);
 
-    doToNext(_ELHead->_next,toDo);
-}
-
-void Game::doToNext(EntityList* _el, void (*toDo)(Entity*)){
-    if(_ELHead == nullptr){return;} 
-
-    toDo(_ELHead->_e);
-
-    doToNext(_ELHead->_next,toDo);
+    SDL_RenderPresent(_renderer);
 }

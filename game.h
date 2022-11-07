@@ -9,17 +9,19 @@ class Game{
 
         EntityList* _ELHead;
 
+        int lastTick;
+
         void loop();
 
-        void foreachEntity(void (*toDo)(Entity*));
+        void updateAllEntities(EntityList* _head, float mod);
 
-        Game(SDL_Surface* _s){
-            _surface = _s;
+        Game(SDL_Renderer* _r){
+            _renderer = _r;
+            lastTick = SDL_GetTicks();
+            _ELHead = NULL;
         }
 
     private:
 
-       void doToNext(EntityList* _el, void (*toDo)(Entity*));
-
-       SDL_Surface* _surface;
+        SDL_Renderer* _renderer;
 };
