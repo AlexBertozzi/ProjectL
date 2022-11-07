@@ -11,7 +11,7 @@ class Entity{
 
         SDL_Renderer* _renderer;
 
-        bool update(float mod);
+        virtual bool update(float mod);
 
         void show();
 
@@ -21,6 +21,7 @@ class Entity{
         pos.h = h;
         pos.w = w;
         _renderer = _r;
+        team = -1;
     }
 
 };

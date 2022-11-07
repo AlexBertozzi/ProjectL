@@ -2,23 +2,26 @@
 #include "entity.h"
 #include <SDL.h>
 
-class Player : Entity{
+class Player : public Entity{
 
-    bool up,down,left,right;
+    public: 
 
-    int verticalSpeed, orizontalSpeed;
+        bool up,down,left,right;
 
-    Player(SDL_Renderer* _r, int x, int y, int w, int h) : Entity(_r,x,y,w,h){
+        int verticalSpeed, orizontalSpeed;
 
-        up = false;
-        down = false;
-        left = false;
-        right = false;
-        verticalSpeed = 5;
-        orizontalSpeed = 5;
-    }
+        Player(SDL_Renderer* _r, int x, int y, int w, int h) : Entity(_r,x,y,w,h){
 
-    void update(float mod);
+            up = false;
+            down = false;
+            left = false;
+            right = false;
+            verticalSpeed = 50;
+            orizontalSpeed = 50;
+            team = 1;
+        }
 
-    void move(float mod);
+        bool update(float mod);
+
+        void move(float mod);
 };

@@ -31,7 +31,7 @@ int main(int argc, char**){
 
 			do{
 
-				game.loop();
+				game.loop(&event);
 
 				SDL_PollEvent(&event);
 			}while(event.type != SDL_QUIT);

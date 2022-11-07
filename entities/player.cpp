@@ -1,10 +1,11 @@
 #include <player.h>
+#include <iostream>
 
-void Player::update(float mod){
+bool Player::update(float mod){
 
     move(mod);
 
-    Entity::update(mod);
+    return Entity::update(mod);
 }
 
 void Player::move(float mod){
