@@ -1,6 +1,3 @@
-const int SCREENWIDTH = 1280;
-const int SCREENHEIGHT = 768;
-
 #include <iostream>
 #include <SDL.h>
 

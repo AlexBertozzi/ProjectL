@@ -1,5 +1,8 @@
 #pragma once
 
+const int SCREENWIDTH = 1280;
+const int SCREENHEIGHT = 768;
+
 #include <entity.h>
 #include <SDL.h>
 #include <player.h>

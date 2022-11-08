@@ -2,8 +2,8 @@
 #include <SDL.h>
 #include <iostream>
 
-extern int SCREENHEIGHT;
-extern int SCREENWIDTH;
+extern const int SCREENHEIGHT;
+extern const int SCREENWIDTH;
 
 void Game::updateAllEntities(EntityList* _head, float mod){
     if(_head == NULL) return;
@@ -12,14 +12,16 @@ void Game::updateAllEntities(EntityList* _head, float mod){
 
     checkCollisions(_head,_head->_next);
 
-    if(!_head->_e->alive){
+    if(_head->_e->alive){
+
+        updateAllEntities(_head->_next,mod);
+    }else{
+        
         // delete the element
         EntityList* _box = _head;
         _head = _head->_next;
         delete(_box);
         updateAllEntities(_head,mod);
-    }else{
-        updateAllEntities(_head->_next,mod);
     }
 }
 

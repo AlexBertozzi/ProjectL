@@ -8,7 +8,7 @@ class Player : public Entity{
 
         bool up,down,left,right;
 
-        int verticalSpeed, orizontalSpeed;
+        float gravity,verticalSpeed, orizontalSpeed, maxVerticalSpeed, jumpHeight;
 
         Player(SDL_Renderer* _r, int x, int y, int w, int h) : Entity(_r,x,y,w,h){
 
@@ -16,9 +16,12 @@ class Player : public Entity{
             down = false;
             left = false;
             right = false;
-            verticalSpeed = 50;
+            verticalSpeed = 0;
             orizontalSpeed = 50;
+            maxVerticalSpeed = 100;
             team = 1;
+            jumpHeight = 70;
+            gravity = 50;
         }
 
         void update(float mod);
