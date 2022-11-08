@@ -20,7 +20,7 @@ class Player : public Entity{
             orizontalSpeed = 50;
             maxVerticalSpeed = 100;
             team = 1;
-            jumpHeight = 70;
+            jumpHeight = 50;
             gravity = 50;
         }
 

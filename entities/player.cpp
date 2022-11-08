@@ -33,12 +33,18 @@ void Player::move(float mod){
 void Player::collided(Entity* _e){
     if(_e->team == 0){
 
-        if(((pos.fy+ (9*pos.fh/10)) < (_e->pos.fy)) && (verticalSpeed >= 0)){
+        if((pos.fx+ (9*pos.fw/10)) <= (_e->pos.fx)){
+
+            pos.fx = _e->pos.fx - pos.fw;
+        }else if((_e->pos.fx+ _e->pos.fw) <= (pos.fx + (pos.fw/10))){
+
+            pos.fx = _e->pos.fx + _e->pos.fw;            
+        }else if(((pos.fy+ (9*pos.fh/10)) <= (_e->pos.fy)) && (verticalSpeed >= 0)){
+
             pos.fy = _e->pos.fy - pos.fh;
             verticalSpeed = 0;
-        }
+        }else if(((_e->pos.fy+ _e->pos.fh)) <= (pos.fy + (pos.fw/10)) && (verticalSpeed <= 0)){
 
-        if(((_e->pos.fy+ (9*_e->pos.fh/10)) < (pos.fy)) && (verticalSpeed <= 0)){
             pos.fy = _e->pos.fy + _e->pos.fh;
             verticalSpeed = 0;
         }

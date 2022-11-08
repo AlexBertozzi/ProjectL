@@ -30,7 +30,8 @@ class Game{
 
             _player1 = new Player(_renderer,50,50,50,50);
             addEntity(_player1);
-            addEntity(new Terrain(_renderer,100,100,100,100));
+            addEntity(new Terrain(_renderer,1000,SCREENHEIGHT-100,50,50));
+            addEntity(new Terrain(_renderer,0,SCREENHEIGHT-50,SCREENWIDTH,50));
         }
 
         void addEntity(Entity* _e);
