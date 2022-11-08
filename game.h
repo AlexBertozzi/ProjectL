@@ -3,6 +3,7 @@
 #include <entity.h>
 #include <SDL.h>
 #include <player.h>
+#include <terrain.h>
 
 class Game{
 
@@ -19,12 +20,17 @@ class Game{
         Player* _player1;
 
         Game(SDL_Renderer* _r){
+
             _renderer = _r;
             lastTick = SDL_GetTicks();
-            _player1 = new Player(_renderer,50,50,50,50);
+            _ELHead = NULL;
 
-            _ELHead = new EntityList{_player1,NULL};
+            _player1 = new Player(_renderer,50,50,50,50);
+            addEntity(_player1);
+            addEntity(new Terrain(_renderer,100,100,100,100));
         }
+
+        void addEntity(Entity* _e);
 
     private:
 
@@ -34,4 +40,6 @@ class Game{
 
         void keyDown(SDL_Scancode key);
         void keyUp(SDL_Scancode key);
+
+        void checkCollisions(EntityList* _toCheck, EntityList* _next);
 };

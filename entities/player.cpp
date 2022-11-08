@@ -1,11 +1,11 @@
 #include <player.h>
 #include <iostream>
 
-bool Player::update(float mod){
+void Player::update(float mod){
 
     move(mod);
 
-    return Entity::update(mod);
+    Entity::update(mod);
 }
 
 void Player::move(float mod){
@@ -16,4 +16,9 @@ void Player::move(float mod){
     if(left) pos.fx -= (orizontalSpeed * mod);
 
     if(right) pos.fx += (orizontalSpeed * mod);
+}
+
+void Player::collided(Entity* _e){
+    pos.g = 0;
+    pos.b = 0;
 }

@@ -21,7 +21,9 @@ class Player : public Entity{
             team = 1;
         }
 
-        bool update(float mod);
+        void update(float mod);
 
         void move(float mod);
+
+        void collided(Entity* _e);
 };
