@@ -14,7 +14,8 @@ void Player::update(float mod){
 
 void Player::move(float mod){
 
-    if(up){verticalSpeed = -(jumpHeight);} //doesen't need mod
+    if(jump && !airborne){verticalSpeed = -(jumpHeight);} //doesen't need mod
+    airborne = true;
 
     pos.fy += (verticalSpeed * mod);
 
@@ -43,6 +44,7 @@ void Player::collided(Entity* _e){
 
             pos.fy = _e->pos.fy - pos.fh;
             verticalSpeed = 0;
+            airborne = false;
         }else if(((_e->pos.fy+ _e->pos.fh)) <= (pos.fy + (pos.fw/10)) && (verticalSpeed <= 0)){
 
             pos.fy = _e->pos.fy + _e->pos.fh;

@@ -66,6 +66,9 @@ void Game::keyDown(SDL_Scancode key){
         case SDL_SCANCODE_D:
             _player1->right = true;
             break;
+        case SDL_SCANCODE_SPACE:
+            _player1->jump = true;
+            break;
         default:
             break;
     }
@@ -87,6 +90,9 @@ void Game::keyUp(SDL_Scancode key){
             break;
         case SDL_SCANCODE_D:
             _player1->right = false;
+            break;
+        case SDL_SCANCODE_SPACE:
+            _player1->jump = false;
             break;
         default:
             break;

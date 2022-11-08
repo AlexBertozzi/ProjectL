@@ -6,7 +6,7 @@ class Player : public Entity{
 
     public: 
 
-        bool up,down,left,right;
+        bool up,down,left,right,jump, airborne;
 
         float gravity,verticalSpeed, orizontalSpeed, maxVerticalSpeed, jumpHeight;
 
@@ -16,11 +16,13 @@ class Player : public Entity{
             down = false;
             left = false;
             right = false;
+            jump = false;
+            airborne = false;
             verticalSpeed = 0;
             orizontalSpeed = 50;
             maxVerticalSpeed = 100;
             team = 1;
-            jumpHeight = 50;
+            jumpHeight = 100;
             gravity = 50;
         }
 

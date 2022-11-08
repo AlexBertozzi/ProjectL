@@ -14,6 +14,10 @@ class Hitbox : public Entity{
 
             orizontalSpeed = oSpeed;
             verticalSpeed = vSpeed;
+
+            pos.r = 255;
+            pos.g = 0;
+            pos.b = 0;
         }
 
         void update(float mod);
