@@ -9,11 +9,11 @@ bool Player::update(float mod){
 }
 
 void Player::move(float mod){
-    if(up) pos.y -= verticalSpeed * mod;
+    if(up) pos.fy -= (verticalSpeed * mod);
 
-    if(down) pos.y += verticalSpeed * mod;
+    if(down) pos.fy += (verticalSpeed * mod);
 
-    if(left) pos.x -= orizontalSpeed * mod;
+    if(left) pos.fx -= (orizontalSpeed * mod);
 
-    if(right) pos.x += orizontalSpeed * mod;
+    if(right) pos.fx += (orizontalSpeed * mod);
 }

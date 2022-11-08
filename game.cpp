@@ -9,23 +9,23 @@ void Game::updateAllEntities(EntityList* _head, float mod){
     if(_head == NULL) return;
 
     if(!(_head->_e->update(mod))){
+        // delete the element
         EntityList* _box = _head;
         _head = _head->_next;
         delete(_box);
         updateAllEntities(_head,mod);
     }else{
+
         updateAllEntities(_head->_next,mod);
     }
-
-    
 }
 
 void Game::loop(SDL_Event* _event){
 
     handleEvent(_event);
 
-    float dT = (SDL_GetTicks()-lastTick)/100.0f;
-    lastTick = SDL_GetTicks();
+    float dT = (SDL_GetTicks64()-lastTick)/100.0f;
+    lastTick = SDL_GetTicks64();
     
     SDL_SetRenderDrawColor(_renderer, 0, 0, 0, 255);
     SDL_RenderClear(_renderer);
@@ -87,5 +87,4 @@ void Game::handleEvent(SDL_Event* _event){
         default:
             break;
     }
-
 }

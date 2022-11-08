@@ -10,5 +10,10 @@ void Entity::show(){
 
     SDL_SetRenderDrawColor(_renderer, 255, 255, 255, 255);
 
+    pos.x = pos.fx;
+    pos.y = pos.fy;
+    pos.h = pos.fh;
+    pos.w = pos.fw;
+
     SDL_RenderFillRect(_renderer, &pos);
 }

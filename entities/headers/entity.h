@@ -1,11 +1,12 @@
 #pragma once
 #include <SDL.h>
+#include <rect.h>
 
 class Entity{
 
     public: 
 
-        SDL_Rect pos;
+        Rect pos;
 
         int team;
 
@@ -16,12 +17,16 @@ class Entity{
         void show();
 
     Entity(SDL_Renderer* _r,int x, int y, int w, int h){
-        pos.x = x;
-        pos.y = y;
-        pos.h = h;
-        pos.w = w;
+        pos.fx = x;
+        pos.fy = y;
+        pos.fh = h;
+        pos.fw = w;
         _renderer = _r;
         team = -1;
+
+        pos.r = 255;
+        pos.g = 255;
+        pos.b = 255;
     }
 
 };
