@@ -1,7 +1,9 @@
 #include <iostream>
 #include <SDL.h>
 
-#include "game.h"
+#include <game.h>
+
+Game game;
 
 int main(int argc, char**){
 
@@ -24,7 +26,7 @@ int main(int argc, char**){
 
 			SDL_Event event; 
 
-			Game game = Game(_renderer);
+			game = Game(_renderer);
 
 			do{
 

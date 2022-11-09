@@ -1,7 +1,7 @@
 #include <entity.h>
 #include <SDL.h>
 
-void Entity::update(float mod){
+void Entity::update(double mod){
     show();
 }
 

@@ -5,7 +5,7 @@ const int SCREENHEIGHT = 768;
 
 #include <entity.h>
 #include <SDL.h>
-#include <player.h>
+#include <sol.h>
 #include <terrain.h>
 
 class Game{
@@ -18,9 +18,11 @@ class Game{
 
         void loop(SDL_Event* _event);
 
-        void updateAllEntities(EntityList* _head, float mod);
+        void updateAllEntities(EntityList* &_head, float mod);
 
         Player* _player1;
+
+        Game(){}
 
         Game(SDL_Renderer* _r){
 
@@ -28,7 +30,7 @@ class Game{
             lastTick = SDL_GetTicks();
             _ELHead = NULL;
 
-            _player1 = new Player(_renderer,50,50,50,50);
+            _player1 = new Sol(_renderer,50,50);
             addEntity(_player1);
             addEntity(new Terrain(_renderer,1000,SCREENHEIGHT-100,50,50));
             addEntity(new Terrain(_renderer,0,SCREENHEIGHT-50,SCREENWIDTH,50));
@@ -36,14 +38,11 @@ class Game{
 
         void addEntity(Entity* _e);
 
-    private:
-
         SDL_Renderer* _renderer;
 
-        void handleEvent(SDL_Event* _event);
+    private:        
 
-        void keyDown(SDL_Scancode key);
-        void keyUp(SDL_Scancode key);
+        void handleEvent(SDL_Event* _event);
 
         void checkCollisions(EntityList* _toCheck, EntityList* _next);
 };

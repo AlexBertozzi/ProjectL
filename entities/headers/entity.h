@@ -12,7 +12,7 @@ class Entity{
 
         SDL_Renderer* _renderer;
 
-        virtual void update(float mod);
+        virtual void update(double mod);
 
         virtual void show();
 
