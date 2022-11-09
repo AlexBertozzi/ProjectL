@@ -6,9 +6,12 @@ class Sol : public Player{
 
     public:
 
-        Sol(SDL_Renderer* _r, int x, int y) : Player(_r,x,y,40,100){
+        Sol(SDL_Renderer* _r, int x, int y) : Player(_r,x,y,50,100){
 
         }
+
+        void crouch();
+        void stand();
 
         void normal(int key);
 

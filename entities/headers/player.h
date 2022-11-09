@@ -7,7 +7,7 @@ class Player : public Entity{
 
     public: 
 
-        bool up,down,left,right,jump;
+        bool up,down,left,right,jump,crouched;
 
         char direction;
 
@@ -22,6 +22,7 @@ class Player : public Entity{
             left = false;
             right = false;
             jump = false;
+            crouched = false;
             airborne = 0;
             verticalSpeed = 0;
             orizontalSpeed = 50;
@@ -35,6 +36,7 @@ class Player : public Entity{
             buffer.buffer = new int[buffer.size];
             sleep = 0;
             orizontalMomentum = 0;
+
         }
 
         void update(double mod);
@@ -52,4 +54,8 @@ class Player : public Entity{
         virtual bool special(int button);
 
         virtual void normal(int button);
+
+        virtual void crouch();
+
+        virtual void stand();
 };

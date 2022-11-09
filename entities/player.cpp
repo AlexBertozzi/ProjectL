@@ -40,6 +40,12 @@ void Player::move(double mod){
         }
     }else{
         if(sleep <= 0){
+
+            if(down){
+                crouch();
+            }else{
+                stand();
+            }
             
             if(left){ 
                 orizontalMomentum = -(orizontalSpeed);
@@ -175,5 +181,13 @@ bool Player::special(int button){
 }
 
 void Player::normal(int button){
+    return;
+}
+
+void Player::crouch(){
+    return;
+}
+
+void Player::stand(){
     return;
 }

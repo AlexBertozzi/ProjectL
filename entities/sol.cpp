@@ -36,3 +36,19 @@ void Sol::heavy(){
         game.addEntity((new Hitbox(_renderer,pos.fw,15,60,40,team,0,0,4,this)));
     sleep = 4;
 }
+
+void Sol::crouch(){
+    if(!crouched){
+        pos.fh = pos.fh/2;
+        pos.fy += pos.fh;
+        crouched = true;
+    }
+}
+
+void Sol::stand(){
+    if(crouched){
+        pos.fy -= pos.fh;
+        pos.fh = pos.fh*2;
+        crouched = false;
+    }
+}
