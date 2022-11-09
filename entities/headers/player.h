@@ -9,6 +9,8 @@ class Player : public Entity{
 
         bool up,down,left,right,jump,crouched;
 
+        char status;
+
         char direction;
 
         Buffer buffer;
@@ -36,10 +38,11 @@ class Player : public Entity{
             buffer.buffer = new int[buffer.size];
             sleep = 0;
             orizontalMomentum = 0;
+            status = ' ';
 
         }
 
-        void update(double mod);
+        virtual void update(double mod);
 
         virtual void move(double mod);
 
