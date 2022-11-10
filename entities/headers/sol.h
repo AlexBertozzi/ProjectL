@@ -20,6 +20,8 @@ class Sol : public Player{
 
         }
 
+        bool special(int button);
+
         void update(double mod);
 
         void move(double mod);
@@ -31,6 +33,8 @@ class Sol : public Player{
 
         void heavy();
         void light();
+
+        void fireball();
 
         void dash();
 };

@@ -33,12 +33,16 @@ class Player : public Entity{
             team = 1;
             jumpHeight = 100;
             gravity = 50;
-            buffer.size = 10;
+            buffer.size = 4;
             buffer.index = 0;
             buffer.buffer = new int[buffer.size];
             sleep = 0;
             orizontalMomentum = 0;
             status = ' ';
+
+            for(int i= 0; i< buffer.size; i++){
+                buffer.buffer[i] = 0;
+            }
 
         }
 
@@ -61,4 +65,6 @@ class Player : public Entity{
         virtual void crouch();
 
         virtual void stand();
+
+        void bufferInput();
 };

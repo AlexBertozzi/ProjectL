@@ -1,6 +1,7 @@
 #include <player.h>
 #include <iostream>
 #include <game.h>
+#include <buffer.h>
 
 extern const int SCREENHEIGHT;
 extern const int SCREENWIDTH;
@@ -100,8 +101,6 @@ void Player::collided(Entity* _e){
 
 void Player::keyDown(SDL_Scancode key){
 
-    std::cout<<"DOWN: "<<key<<std::endl;
-
     switch(key){
         case SDL_SCANCODE_W:
             up = true;
@@ -126,14 +125,10 @@ void Player::keyDown(SDL_Scancode key){
             break;
     }
 
-    buffer.index += 1;
-
-    buffer.buffer[(buffer.index % buffer.size)] = key;
+    bufferInput();
 }
 
 void Player::keyUp(SDL_Scancode key){
-
-    std::cout<<"UP:   "<<key<<std::endl;
 
     switch(key){
         case SDL_SCANCODE_W:
@@ -154,6 +149,8 @@ void Player::keyUp(SDL_Scancode key){
         default:
             break;
     }
+
+    bufferInput();
 }
 
 bool Player::checkBuffer(int size, int* toCheck){
@@ -172,8 +169,30 @@ bool Player::checkBuffer(int size, int* toCheck){
         }
     }
 
-    return found;
+    delete(toCheck);
 
+    return found;
+}
+
+void Player::bufferInput(){
+
+    buffer.index++;
+
+    if(up){
+        if(left) buffer.buffer[buffer.index % buffer.size] = 7;
+        else if(right) buffer.buffer[buffer.index % buffer.size] = 9;
+        else buffer.buffer[buffer.index % buffer.size] = 8;
+    }else if(down){
+        if(left) buffer.buffer[buffer.index % buffer.size] = 1;
+        else if(right) buffer.buffer[buffer.index % buffer.size] = 3;
+        else buffer.buffer[buffer.index % buffer.size] = 2;
+    }else{
+        if(left) buffer.buffer[buffer.index % buffer.size] = 4;
+        else if(right) buffer.buffer[buffer.index % buffer.size] = 6;
+        else buffer.buffer[buffer.index % buffer.size] = 5;
+    }
+
+    std::cout<<buffer.buffer[buffer.index%buffer.size]<<std::endl;
 }
 
 bool Player::special(int button){

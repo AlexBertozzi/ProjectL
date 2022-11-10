@@ -16,6 +16,9 @@ void Sol::update(double mod){
         case 'h':
             heavy();
             break;
+        case 'f':
+            fireball();
+            break;
         default:
             break;
     }
@@ -28,7 +31,7 @@ void Sol::normal(int key){
     if(sleep > 0) return;
 
     switch(key){
-        case SDL_SCANCODE_H:
+        case SDL_SCANCODE_B:
             light();
             break;
         case SDL_SCANCODE_J:
@@ -73,6 +76,25 @@ void Sol::heavy(){
     }
 }
 
+void Sol::fireball(){
+    if(status == ' ' && tick <0){
+        status = 'f';
+        tick = 0;
+
+        inertia -= direction == 'L'? -15:15;
+        sleep = 1.5;
+    }else if(status == 'f' && tick >= 0.2){
+        if(direction == 'L'){
+            game.addEntity((new Hitbox(_renderer,pos.fx-20,pos.fy,20,20,team,-60,0,10)));
+        }else{
+            game.addEntity((new Hitbox(_renderer,pos.fx+pos.fw,pos.fy,20,20,team,60,0,10)));
+        }
+        
+        tick = -1;
+        status = ' ';
+    }
+}
+
 void Sol::crouch(){
     if(!crouched){
         pos.fh = pos.fh/2;
@@ -109,4 +131,28 @@ void Sol::dash(){
         inertia = 100;
     }
     dashCd = 1;
+}
+
+bool Sol::special(int key){
+
+    bool flag = false;
+
+    switch(key){
+        case SDL_SCANCODE_B:
+            if(Player::checkBuffer(2, new int[2]{3,6}) || Player::checkBuffer(2, new int[2]{2,6})){
+                direction = 'R';
+                fireball();
+                flag = true;
+            }
+            if(Player::checkBuffer(2, new int[2]{1,4}) || Player::checkBuffer(2, new int[2]{2,4})){
+                direction = 'L';
+                fireball();
+                flag = true;
+            }
+            break;
+        default:
+            break;
+    }
+
+    return flag;
 }
