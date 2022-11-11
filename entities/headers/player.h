@@ -13,7 +13,7 @@ class Player : public Entity{
 
         char direction;
 
-        double sleep, speed;
+        double sleep, speed, hp, maxHp;
 
         Player(SDL_Renderer* _r, int x, int y, int w, int h) : Entity(_r,x,y,w,h){
             direction = 'L';
@@ -21,10 +21,12 @@ class Player : public Entity{
             down = false;
             left = false;
             right = false;
-            speed = 50;
+            speed = 70;
             team = 1;
             sleep = 0;
             status = ' ';
+            maxHp = 0;
+            hp = maxHp;
         }
 
         virtual void update(double mod);

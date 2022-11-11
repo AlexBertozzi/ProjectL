@@ -6,6 +6,7 @@
 #include <terrain.h>
 #include <camera.h>
 #include <cursor.h>
+#include <hud.h>
 
 extern const int SCREENWIDTH;
 extern const int SCREENHEIGHT;
@@ -26,6 +27,8 @@ class Game{
 
         Player* _player1;
 
+        HUD hud;
+
         Cursor cursor;
 
         Game(){}
@@ -38,11 +41,14 @@ class Game{
 
             cursor = Cursor();
             cursor._renderer = _r;
-            cursor.load("png/crossair.png");
+            cursor.load("png/crossair_thick.png");
 
             _player1 = new Sol(_renderer,50,50);
             addEntity(_player1);
-
+            
+            hud = HUD();
+            hud._tracking = _player1;
+            hud._renderer = _r;
             camera = Camera(_player1,10000,10000);
 
             addEntity(new Terrain(_renderer,1000,SCREENHEIGHT-100,50,50));

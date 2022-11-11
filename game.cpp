@@ -48,7 +48,7 @@ void Game::loop(SDL_Event* _event){
     updateAllEntities(_ELHead,dT);
 
     camera.update();
-
+    hud.show();
     cursor.show();
 
     SDL_RenderPresent(_renderer);

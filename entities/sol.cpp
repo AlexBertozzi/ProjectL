@@ -48,7 +48,7 @@ void Sol::specialDown(int key){
 void Sol::dash(){
     if(dashCd > 0) return;
     inertia = 100;
-    dashCd = 1.5;
+    dashCd = 1.7;
     IFrames = 0.7;
 }
 

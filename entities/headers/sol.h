@@ -21,6 +21,9 @@ class Sol : public Player{
             fireCd = 0;
 
             IFrames = 0;
+
+            maxHp = 5;
+            hp = 5;
         }
 
         void update(double mod);
