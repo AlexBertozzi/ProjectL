@@ -32,4 +32,6 @@ class Shooter : public Entity{
         void moveAwayAndShoot(EntityList* _head);
 
         void collided(Entity* _e);
+
+        bool canSee(Entity* _e,EntityList* _el);
 };
