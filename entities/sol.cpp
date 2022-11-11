@@ -11,6 +11,8 @@ extern Camera camera;
 void Sol::update(double mod){
 
     if(dashCd>=0) dashCd -= mod;
+    if(fireCd>=0) fireCd -= mod;
+    if(IFrames>=0) IFrames -= mod;
 
     if(leftMouse) fire();
 
@@ -19,14 +21,14 @@ void Sol::update(double mod){
 
 void Sol::move(double mod){
 
-    if(inertia > 1 || inertia < 1){
+    if(inertia > 0){
 
         if(up) pos.fy -= inertia*mod / (left || right ? 2 : 1);
         if(down) pos.fy += inertia*mod / (left || right ? 2 : 1);
         if(left) pos.fx -= inertia*mod / (up || down ? 2 : 1);
         if(right) pos.fx += inertia*mod / (up || down ? 2 : 1);
 
-        inertia -= (inertia*mod);
+        inertia -= ((inertia+speed)*mod)/3;
     }
     
 
@@ -47,9 +49,13 @@ void Sol::dash(){
     if(dashCd > 0) return;
     inertia = 100;
     dashCd = 1.5;
+    IFrames = 0.7;
 }
 
 void Sol::fire(){
+
+    if(fireCd >0) return;
+
     int *x = new int, *y = new int;
 
     SDL_GetMouseState(x,y);
@@ -61,4 +67,12 @@ void Sol::fire(){
     double mody = 5*sin(angle/(180/3.141592654));
 
     game.addEntity(new Hitbox(_renderer,pos.fx,pos.fy,30,30,team,50*(modx),50*(mody),30));
+
+    fireCd = 1.5;
 }
+
+void Sol::show(){
+    if(IFrames<= 0 || ((int)(IFrames*1000))%3 == 0) Entity::show();
+
+    
+}   

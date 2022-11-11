@@ -5,6 +5,7 @@
 #include <sol.h>
 #include <terrain.h>
 #include <camera.h>
+#include <cursor.h>
 
 extern const int SCREENWIDTH;
 extern const int SCREENHEIGHT;
@@ -25,6 +26,8 @@ class Game{
 
         Player* _player1;
 
+        Cursor cursor;
+
         Game(){}
 
         Game(SDL_Renderer* _r){
@@ -32,6 +35,9 @@ class Game{
             _renderer = _r;
             lastTick = SDL_GetTicks();
             _ELHead = NULL;
+
+            cursor = Cursor();
+            cursor._renderer = _r;
 
             _player1 = new Sol(_renderer,50,50);
             addEntity(_player1);
