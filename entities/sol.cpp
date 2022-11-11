@@ -56,11 +56,7 @@ void Sol::fire(){
 
     if(fireCd >0) return;
 
-    int *x = new int, *y = new int;
-
-    SDL_GetMouseState(x,y);
-
-    double angle = atan2(*y-pos.fy + camera.modY, *x-pos.fx + camera.modX);
+    double angle = atan2(game.cursor.pos.y-pos.fy + camera.modY, game.cursor.pos.x-pos.fx + camera.modX);
 
     double modx = 5*cos(angle);
 

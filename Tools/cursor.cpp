@@ -23,9 +23,9 @@ void Cursor::show(){
 
     SDL_GetMouseState(x,y);
 
-    pos.x = *x;
+    pos.x = *x - 16;
 
-    pos.y = *y;
+    pos.y = *y - 16;
 
     SDL_RenderCopy(_renderer,_texture, NULL, &pos);
 }

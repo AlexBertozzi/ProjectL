@@ -38,7 +38,7 @@ int main(int argc, char**){
 				game.loop(&event);
 
 				SDL_PollEvent(&event);
-			}while(event.type != SDL_QUIT);
+			}while(event.type != SDL_QUIT && (event.key.keysym.scancode != SDL_SCANCODE_ESCAPE));
 
 		}
 	}
