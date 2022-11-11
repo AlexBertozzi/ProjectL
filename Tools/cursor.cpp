@@ -1,8 +1,20 @@
+#include <string>
+
 #include <SDL.h>
 #include <cursor.h>
 #include <camera.h>
+#include <SDL_image.h>
 
 extern Camera camera;
+
+void Cursor::load(std::string path){
+
+    SDL_Surface* _surf = IMG_Load(path.c_str());
+
+    _texture = SDL_CreateTextureFromSurface(_renderer, _surf);
+
+    SDL_FreeSurface(_surf);
+}
 
 void Cursor::show(){
     SDL_SetRenderDrawColor(_renderer, 0, 255, 0, 255);
@@ -11,9 +23,9 @@ void Cursor::show(){
 
     SDL_GetMouseState(x,y);
 
-    pos.x = *x + camera.modX;
+    pos.x = *x;
 
-    pos.y = *y + camera.modY;
+    pos.y = *y;
 
-    SDL_RenderFillRect(_renderer, &pos);
+    SDL_RenderCopy(_renderer,_texture, NULL, &pos);
 }

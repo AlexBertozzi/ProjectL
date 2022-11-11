@@ -1,5 +1,6 @@
 #pragma once
 
+#include <string>
 #include <SDL.h>
 
 class Cursor{
@@ -7,7 +8,7 @@ class Cursor{
     public:
     
         SDL_Rect pos;
-
+        SDL_Texture* _texture;
         SDL_Renderer* _renderer;
 
         Cursor(){
@@ -30,5 +31,5 @@ class Cursor{
 
         void show();
 
-
+        void load(std::string path);
 };

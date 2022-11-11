@@ -38,6 +38,7 @@ class Game{
 
             cursor = Cursor();
             cursor._renderer = _r;
+            cursor.load("png/crossair.png");
 
             _player1 = new Sol(_renderer,50,50);
             addEntity(_player1);
