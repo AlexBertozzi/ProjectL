@@ -39,20 +39,19 @@ void Player::move(double mod){
 void Player::collided(Entity* _e){
     if(_e->team == 0){
 
-        if((pos.fx+ (9*pos.fw/10)) <= (_e->pos.fx)){
+        if((pos.fx+ (2*pos.fw/3)) <= (_e->pos.fx)){
 
             pos.fx = _e->pos.fx - pos.fw;
-        }else if((_e->pos.fx+ _e->pos.fw) <= (pos.fx + (pos.fw/10))){
+        }else if((_e->pos.fx+ _e->pos.fw) <= (pos.fx + (pos.fw/3))){
 
             pos.fx = _e->pos.fx + _e->pos.fw;            
-        }else if(((pos.fy+ (9*pos.fh/10)) <= (_e->pos.fy))){
+        }else if(((pos.fy+ (2*pos.fh/3)) <= (_e->pos.fy))){
 
             pos.fy = _e->pos.fy - pos.fh;
-        }else if(((_e->pos.fy+ _e->pos.fh)) <= (pos.fy + (pos.fw/10))){
+        }else if(((_e->pos.fy+ _e->pos.fh)) <= (pos.fy + (pos.fw/3))){
 
             pos.fy = _e->pos.fy + _e->pos.fh;
         }
-
     }
 }
 

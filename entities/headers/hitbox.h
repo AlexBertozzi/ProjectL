@@ -16,7 +16,7 @@ class Hitbox : public Entity{
 
         double duration;
 
-        Hitbox(SDL_Renderer* _r,int x, int y, int w, int h, int team, float oSpeed, float vSpeed, float duration) : Entity(_r, x,y,w,h){
+        Hitbox(SDL_Renderer* _r,int x, int y, int w, int h, int team, float oSpeed, float vSpeed, float duration, float damage) : Entity(_r, x,y,w,h){
             this->team = team;
 
             orizontalSpeed = oSpeed;
@@ -25,6 +25,7 @@ class Hitbox : public Entity{
             _following = NULL;
             followDistanceX = 0;
             followDistanceY = 0;
+            contactDamage = damage;
 
             pos.r = 255;
             pos.g = 0;
@@ -33,7 +34,7 @@ class Hitbox : public Entity{
             this->duration = duration;
         }
 
-        Hitbox(SDL_Renderer* _r,int x, int y, int w, int h, int team, float oSpeed, float vSpeed, float duration, Entity* _e) : Entity(_r, x,y,w,h){
+        Hitbox(SDL_Renderer* _r,int x, int y, int w, int h, int team, float oSpeed, float vSpeed, float duration, float damage, Entity* _e) : Entity(_r, x,y,w,h){
             this->team = team;
 
             orizontalSpeed = oSpeed;

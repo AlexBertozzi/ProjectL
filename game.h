@@ -7,6 +7,7 @@
 #include <camera.h>
 #include <cursor.h>
 #include <hud.h>
+#include <shooter.h>
 
 extern const int SCREENWIDTH;
 extern const int SCREENHEIGHT;
@@ -50,6 +51,8 @@ class Game{
             hud._tracking = _player1;
             hud._renderer = _r;
             camera = Camera(_player1,10000,10000);
+
+            addEntity(new Shooter(_r, 400,400,50,50));
 
             addEntity(new Terrain(_renderer,1000,SCREENHEIGHT-100,50,50));
             addEntity(new Terrain(_renderer,0,SCREENHEIGHT-50,SCREENWIDTH,50));

@@ -18,6 +18,8 @@ class Entity{
 
         bool alive;
 
+        float contactDamage;
+
         Entity(SDL_Renderer* _r,int x, int y, int w, int h){
             pos.fx = x;
             pos.fy = y;
@@ -27,6 +29,8 @@ class Entity{
             _renderer = _r;
             team = -1;
             alive = true;
+
+            contactDamage = 0;
 
             pos.r = 255;
             pos.g = 255;

@@ -60,19 +60,25 @@ void Sol::fire(){
 
     SDL_GetMouseState(x,y);
 
-    double angle = atan2(*y-pos.fy + camera.modY, *x-pos.fx + camera.modX) * (180/3.141592654);
+    double angle = atan2(*y-pos.fy + camera.modY, *x-pos.fx + camera.modX);
 
-    double modx = 5*cos(angle/(180/3.141592654));
+    double modx = 5*cos(angle);
 
-    double mody = 5*sin(angle/(180/3.141592654));
+    double mody = 5*sin(angle);
 
-    game.addEntity(new Hitbox(_renderer,pos.fx,pos.fy,30,30,team,50*(modx),50*(mody),30));
+    game.addEntity(new Hitbox(_renderer,pos.fx,pos.fy,30,30,2,50*(modx),50*(mody),30,1));
 
-    fireCd = 1.5;
+    fireCd = 3;
 }
 
 void Sol::show(){
     if(IFrames<= 0 || ((int)(IFrames*1000))%3 == 0) Entity::show();
-
-    
 }   
+
+void Sol::collided(Entity* _e){
+    if(_e->team <0){
+        hp -= _e->contactDamage;
+    }
+
+    Player::collided(_e);
+}

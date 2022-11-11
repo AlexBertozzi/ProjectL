@@ -19,9 +19,7 @@ void Hitbox::move(double mod){
 }
 
 void Hitbox::collided(Entity* _e){
-    if(_e->team != team && _e->team != 0){
-        alive = false;
-    }
+    alive =  ((_e->team == 2) || (_e->team == -2) || (_e->team > 0 && team > 0) || (_e->team <0 && team <0));
 }
 
 Hitbox* Hitbox::follow(Entity* _e, double distanceX, double distanceY){
