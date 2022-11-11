@@ -1,9 +1,11 @@
-#include "game.h"
+#include <game.h>
 #include <SDL.h>
+#include <camera.h>
 #include <iostream>
 
 extern const int SCREENHEIGHT;
 extern const int SCREENWIDTH;
+extern Camera camera;
 
 void Game::updateAllEntities(EntityList* &_head, float mod){
     if(_head == NULL) return;
@@ -46,6 +48,8 @@ void Game::loop(SDL_Event* _event){
 
     updateAllEntities(_ELHead,dT);
 
+    camera.update();
+
     SDL_RenderPresent(_renderer);
 }
 
@@ -57,6 +61,12 @@ void Game::handleEvent(SDL_Event* _event){
             break;
         case SDL_KEYUP:
             _player1->keyUp(_event->key.keysym.scancode);
+            break;
+        case SDL_MOUSEBUTTONDOWN:
+            _player1->click(_event->button);
+            break;
+        case SDL_MOUSEBUTTONUP:
+            _player1->click(_event->button);
             break;
         default:
             break;

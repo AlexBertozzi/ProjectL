@@ -1,12 +1,15 @@
 #pragma once
 
-const int SCREENWIDTH = 1280;
-const int SCREENHEIGHT = 768;
-
 #include <entity.h>
 #include <SDL.h>
 #include <sol.h>
 #include <terrain.h>
+#include <camera.h>
+
+extern const int SCREENWIDTH;
+extern const int SCREENHEIGHT;
+
+extern Camera camera;
 
 class Game{
 
@@ -32,6 +35,9 @@ class Game{
 
             _player1 = new Sol(_renderer,50,50);
             addEntity(_player1);
+
+            camera = Camera(_player1,10000,10000);
+
             addEntity(new Terrain(_renderer,1000,SCREENHEIGHT-100,50,50));
             addEntity(new Terrain(_renderer,0,SCREENHEIGHT-50,SCREENWIDTH,50));
         }

@@ -1,9 +1,14 @@
 #include <iostream>
 #include <SDL.h>
-
+#include <camera.h>
 #include <game.h>
 
+const int SCREENWIDTH = 1280;
+const int SCREENHEIGHT = 768;
+
 Game game;
+
+Camera camera;
 
 int main(int argc, char**){
 
