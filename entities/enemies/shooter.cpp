@@ -11,39 +11,64 @@ void Shooter::update(double mod){
 
     if(shootCd >=0) shootCd -= mod;
 
+    SDL_Rect aiming = lastPlayerPos;
+
+    aiming.x -= camera.modX;
+    aiming.y -= camera.modY;
+
+    SDL_SetRenderDrawColor(_renderer, 0,0,255, 255);
+
+    SDL_RenderFillRect(_renderer, &aiming);
+
     Entity::update(mod);
 
     alive = (hp > 0);
 }
 
-void Shooter::moveAwayAndShoot(EntityList* _head){
-    if(_head == NULL) return;
+void Shooter::switchMode(EntityList* _head){
+    if(_head == NULL){ 
+        state = 's';
+        return;
+    }
+
+    switchMode(_head->_next);
 
     if(_head->_e->team == 1){
 
         if(canSee(_head->_e, game._ELHead)){
 
-            double dist = sqrt(((_head->_e->pos.fx - pos.fx) * (_head->_e->pos.fx - pos.fx)) + ((_head->_e->pos.fy - pos.fy) * (_head->_e->pos.fy - pos.fy)));
+            lastPlayerPos.x = _head->_e->pos.fx;
+            lastPlayerPos.y = _head->_e->pos.fy;
 
-            double angle = atan2(_head->_e->pos.y -pos.fy + camera.modY, _head->_e->pos.x -pos.fx + camera.modX);
-
-            speedX = ((dist < safe) ? -30 : 20) *cos(angle);
-
-            speedY = ((dist < safe) ? -30 : 20) *sin(angle);
-
-            if(dist > safe && shootCd <= 0){
-                game.addEntity(new Hitbox(_renderer,pos.fx,pos.fy,30,30,-2,20*(cos(angle)),20*(sin(angle)),30,1));
-                shootCd = 10;
-            }
+            state = 'a';
         }
     }
-
-    moveAwayAndShoot(_head->_next);
 }
 
 void Shooter::move(double mod){
 
-    moveAwayAndShoot(game._ELHead);
+    switchMode(game._ELHead);
+
+    switch(state){
+        case 'a': //attack
+            moveAwayAndShoot();
+            pos.r = 255;
+            pos.g = 0;
+            pos.b = 0;
+            break;
+        case 's': //search
+            search();
+            pos.r = 0;
+            pos.g = 0;
+            pos.b = 255;
+            break;
+        default: //idle
+            idle();
+            pos.r = 0;
+            pos.g = 255;
+            pos.b = 0;
+            break;
+    }
 
     pos.fx += speedX * mod;
 
@@ -80,17 +105,47 @@ bool Shooter::canSee(Entity* _e, EntityList* _el){
 
     if(_el->_e->team == 0){
 
-        /*float a = _e->pos.fy - pos.fy;
+        bool result = ((pos.fx <= _el->_e->pos.fx) && (_e->pos.fx <= _el->_e->pos.fx)) || 
+                        (((pos.fy+pos.fh) >= (_el->_e->pos.fy+_el->_e->pos.fh)) && ((_e->pos.fy+_e->pos.fh) >= (_el->_e->pos.fy+_el->_e->pos.fh))) ||
+                        (((pos.fx+pos.fw) >= (_el->_e->pos.fx+_el->_e->pos.fw)) && ((_e->pos.fx+_e->pos.fw) >= (_el->_e->pos.fx+_el->_e->pos.fw))) ||
+                        ((pos.fy <= _el->_e->pos.fy) && (_e->pos.fy <= _el->_e->pos.fy));
 
-        float b = _e->pos.fx - pos.fx;
+        if(!result){return false;}
+    }
 
-        if(((a*_el->_e->pos.fx) - (b*_el->_e->pos.fy) - (pos.fx * (a)) - (pos.fy * (b))) / sqrt((a * (a)) + (b* (b))) > pos.fw){
-            return false;
-        }*/
+    return canSee(_e,_el->_next);
+}
 
-        return canSee(_e,_el->_next);
+void Shooter::idle(){
 
+    speedX = 0;
+    speedY = 0;
+}
+
+void Shooter::search(){
+    if(lastPlayerPos.x <0 || lastPlayerPos.y< 0){
+        state = 'i';
     }else{
-        return canSee(_e,_el->_next);
+        
+        double angle = atan2(lastPlayerPos.y -pos.fy, lastPlayerPos.x -pos.fx);
+
+        speedX = 15 *cos(angle);
+
+        speedY = 15 *sin(angle);
+    }
+}
+
+void Shooter::moveAwayAndShoot(){
+    double dist = sqrt(((lastPlayerPos.x - pos.fx) * (lastPlayerPos.x - pos.fx)) + ((lastPlayerPos.y - pos.fy) * (lastPlayerPos.y - pos.fy)));
+
+    double angle = atan2(lastPlayerPos.y -pos.fy, lastPlayerPos.x -pos.fx);
+
+    speedX = ((dist < safe) ? -30 : 20) *cos(angle);
+
+    speedY = ((dist < safe) ? -30 : 20) *sin(angle);
+
+    if(dist > safe && shootCd <= 0){
+        game.addEntity(new Hitbox(_renderer,pos.fx,pos.fy,30,30,-2,20*(cos(angle)),20*(sin(angle)),30,1));
+        shootCd = 10;
     }
 }
