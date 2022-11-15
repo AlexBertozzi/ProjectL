@@ -75,20 +75,22 @@ void Sol::slash(){
 
     double angle = atan2(game.cursor.pos.y-pos.fy + camera.modY, game.cursor.pos.x-pos.fx + camera.modX);
 
-    double modx = 5*cos(angle - 0.2);
-    double mody = 5*sin(angle - 0.2);
+    float arc = 35;
 
-    Slash* first = new Slash(_renderer,10*modx,10*mody,30,30,2,0,0,0.7,1,this);
+    double modx = arc*cos(angle - 0.2);
+    double mody = arc*sin(angle - 0.2);
 
-    modx = 5*cos(angle);
-    mody = 5*sin(angle);
+    Slash* first = new Slash(_renderer,modx,mody,30,30,2,0,0,0.7,1,this);
 
-    first->concat(new Slash(_renderer,10*modx,10*mody,30,30,2,0,0,0.7,1,this));
+    modx = arc*cos(angle);
+    mody = arc*sin(angle);
 
-    modx = 5*cos(angle + 0.2);
-    mody = 5*sin(angle + 0.2);
+    first->concat(new Slash(_renderer,modx,mody,30,30,2,0,0,0.7,1,this));
 
-    first->concat(new Hitbox(_renderer,10*modx,10*mody,30,30,2,0,0,0.7,1,this));
+    modx = arc*cos(angle + 0.2);
+    mody = arc*sin(angle + 0.2);
+
+    first->concat(new Hitbox(_renderer,modx,mody,30,30,2,0,0,0.7,1,this));
 
     game.addEntity(first);
 

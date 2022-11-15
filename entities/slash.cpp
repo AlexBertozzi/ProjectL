@@ -22,5 +22,6 @@ void Slash::collided(Entity* _e){
 
     if(!alive){
         delete(_next);
+        _next = NULL;
     }
 }

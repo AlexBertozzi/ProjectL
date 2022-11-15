@@ -23,6 +23,8 @@ void Game::updateAllEntities(EntityList* &_head, float mod){
         EntityList* _box = _head;
         _head = _head->_next;
         delete(_box);
+
+        //don't need to progress the list, already on next element
         updateAllEntities(_head,mod);
     }
 }

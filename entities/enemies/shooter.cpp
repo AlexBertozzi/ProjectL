@@ -132,7 +132,7 @@ void Shooter::moveAwayAndShoot(){
     speedY = ((dist < safe) ? -30 : 20) *sin(angle);
 
     if(dist > safe && shootCd <= 0){
-        game.addEntity(new Hitbox(_renderer,pos.fx,pos.fy,30,30,-2,20*(cos(angle)),20*(sin(angle)),30,1));
-        shootCd = 10;
+        game.addEntity(new Hitbox(_renderer,pos.fx,pos.fy,30,30,-2,25*(cos(angle)),25*(sin(angle)),30,1));
+        shootCd = 20;
     }
 }

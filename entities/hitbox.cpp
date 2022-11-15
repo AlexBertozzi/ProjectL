@@ -3,8 +3,8 @@
 void Hitbox::update(double mod){
     move(mod);
     duration -= mod;
-    if(duration <= 0){alive = false;}
     Entity::update(mod);
+    alive = alive && duration >= 0;
 }
 
 void Hitbox::move(double mod){
@@ -21,7 +21,7 @@ void Hitbox::move(double mod){
 }
 
 void Hitbox::collided(Entity* _e){
-    alive =  ((_e->team == 2) || (_e->team == -2) || (_e->team > 0 && team > 0) || (_e->team <0 && team <0));
+    alive =  alive && ((_e->team == 2) || (_e->team == -2) || (_e->team > 0 && team > 0) || (_e->team <0 && team <0));
 }
 
 Hitbox* Hitbox::follow(Entity* _e, double distanceX, double distanceY){
