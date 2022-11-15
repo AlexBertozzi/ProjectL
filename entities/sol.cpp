@@ -3,6 +3,7 @@
 #include <hitbox.h>
 #include <iostream>
 #include <math.h>
+#include <slash.h>
 #include <camera.h>
 
 extern Game game;
@@ -12,9 +13,11 @@ void Sol::update(double mod){
 
     if(dashCd>=0) dashCd -= mod;
     if(fireCd>=0) fireCd -= mod;
+    if(slashCd>=0) slashCd -= mod;
     if(IFrames>=0) IFrames -= mod;
 
     if(leftMouse) fire();
+    else if(rightMouse) slash();
 
     Player::update(mod);
 }
@@ -65,6 +68,31 @@ void Sol::fire(){
     game.addEntity(new Hitbox(_renderer,pos.fx,pos.fy,30,30,2,50*(modx),50*(mody),30,1));
 
     fireCd = 3;
+}
+
+void Sol::slash(){
+    if(slashCd >0) return;
+
+    double angle = atan2(game.cursor.pos.y-pos.fy + camera.modY, game.cursor.pos.x-pos.fx + camera.modX);
+
+    double modx = 5*cos(angle - 0.2);
+    double mody = 5*sin(angle - 0.2);
+
+    Slash* first = new Slash(_renderer,10*modx,10*mody,30,30,2,0,0,0.7,1,this);
+
+    modx = 5*cos(angle);
+    mody = 5*sin(angle);
+
+    first->concat(new Slash(_renderer,10*modx,10*mody,30,30,2,0,0,0.7,1,this));
+
+    modx = 5*cos(angle + 0.2);
+    mody = 5*sin(angle + 0.2);
+
+    first->concat(new Hitbox(_renderer,10*modx,10*mody,30,30,2,0,0,0.7,1,this));
+
+    game.addEntity(first);
+
+    slashCd = 3;
 }
 
 void Sol::show(){

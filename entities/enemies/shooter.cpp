@@ -16,10 +16,6 @@ void Shooter::update(double mod){
     aiming.x -= camera.modX;
     aiming.y -= camera.modY;
 
-    SDL_SetRenderDrawColor(_renderer, 0,0,255, 255);
-
-    SDL_RenderFillRect(_renderer, &aiming);
-
     Entity::update(mod);
 
     alive = (hp > 0);
@@ -52,21 +48,12 @@ void Shooter::move(double mod){
     switch(state){
         case 'a': //attack
             moveAwayAndShoot();
-            pos.r = 255;
-            pos.g = 0;
-            pos.b = 0;
             break;
         case 's': //search
             search();
-            pos.r = 0;
-            pos.g = 0;
-            pos.b = 255;
             break;
         default: //idle
             idle();
-            pos.r = 0;
-            pos.g = 255;
-            pos.b = 0;
             break;
     }
 

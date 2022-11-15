@@ -14,8 +14,10 @@ void Hitbox::move(double mod){
     }else{
         pos.fx = _following->pos.fx + followDistanceX;
         pos.fy = _following->pos.fy + followDistanceY;
+
+        followDistanceX += orizontalSpeed * mod;
+        followDistanceY += verticalSpeed * mod;
     }
-    
 }
 
 void Hitbox::collided(Entity* _e){

@@ -43,6 +43,7 @@ class Hitbox : public Entity{
             _following = _e;
             followDistanceX = x;
             followDistanceY = y;
+            contactDamage = damage;
 
             pos.r = 255;
             pos.g = 0;
@@ -51,11 +52,15 @@ class Hitbox : public Entity{
             this->duration = duration;
         }
 
-        void update(double mod);
+        virtual ~Hitbox(){
+            return;
+        }
+
+        virtual void update(double mod);
 
         void move(double mod);
 
-        void collided(Entity* _e);
+        virtual void collided(Entity* _e);
 
         Hitbox* follow(Entity* _e, double distanceX, double distanceY);
 

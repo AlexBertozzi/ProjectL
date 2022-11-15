@@ -10,6 +10,8 @@ class Sol : public Player{
 
         double fireCd;
 
+        double slashCd;
+
         double dashCd;
 
         double IFrames;
@@ -18,6 +20,7 @@ class Sol : public Player{
 
             inertia = 0;
             dashCd = 0;
+            slashCd = 0;
             fireCd = 0;
 
             IFrames = 0;
@@ -35,6 +38,7 @@ class Sol : public Player{
         void specialDown(int key);
 
         void fire();
+        void slash();
 
         void show();
 

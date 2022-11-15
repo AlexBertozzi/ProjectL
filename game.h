@@ -54,8 +54,8 @@ class Game{
 
             addEntity(new Shooter(_r, 700,1000,50,50));
 
-            addEntity(new Terrain(_renderer,1000,SCREENHEIGHT-100,50,55));
-            addEntity(new Terrain(_renderer,0,SCREENHEIGHT-50,SCREENWIDTH,50));
+            addEntity(new Terrain(_renderer,SCREENWIDTH/2 + 100,SCREENHEIGHT-50,50,55));
+            addEntity(new Terrain(_renderer,0,SCREENHEIGHT-50,SCREENWIDTH/2 - 100,50));
         }
 
         void addEntity(Entity* _e);
