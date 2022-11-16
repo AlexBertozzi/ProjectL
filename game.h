@@ -83,4 +83,8 @@ class Game{
         void createMap();
 
         void createPath(char** map, int x, int y, int rem, int prev);
+
+        void reload();
+
+        void clearEntities(EntityList* _head);
 };

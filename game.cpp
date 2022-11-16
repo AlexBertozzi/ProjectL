@@ -26,6 +26,7 @@ void Game::updateAllEntities(EntityList* &_head, float mod){
         // delete the element
         EntityList* _box = _head;
         _head = _head->_next;
+        delete(_box->_e);
         delete(_box);
 
         //don't need to progress the list, already on next element
@@ -65,6 +66,9 @@ void Game::handleEvent(SDL_Event* _event){
     switch(_event->type){
         case SDL_KEYDOWN:
             _player1->keyDown(_event->key.keysym.scancode);
+            if(_event->key.keysym.scancode == SDL_SCANCODE_R){
+                reload();
+            }
             break;
         case SDL_KEYUP:
             _player1->keyUp(_event->key.keysym.scancode);
@@ -107,10 +111,14 @@ void Game::createMap(){
 
     std::cout<<"Done"<<std::endl<<"Creating paths: ";
 
-    createPath(map,MAPWIDTH/2,MAPHEIGHT/2,130,0);
-    createPath(map,MAPWIDTH/2,MAPHEIGHT/2,130,1);
-    createPath(map,MAPWIDTH/2,MAPHEIGHT/2,130,2);
-    createPath(map,MAPWIDTH/2,MAPHEIGHT/2,130,3);
+    createPath(map,MAPWIDTH/2,MAPHEIGHT/2,200,0);
+    createPath(map,MAPWIDTH/2,MAPHEIGHT/2,200,1);
+    createPath(map,MAPWIDTH/2,MAPHEIGHT/2,200,2);
+    createPath(map,MAPWIDTH/2,MAPHEIGHT/2,200,3);
+    createPath(map,MAPWIDTH/2,MAPHEIGHT/2,200,0);
+    createPath(map,MAPWIDTH/2,MAPHEIGHT/2,200,1);
+    createPath(map,MAPWIDTH/2,MAPHEIGHT/2,200,2);
+    createPath(map,MAPWIDTH/2,MAPHEIGHT/2,200,3);
 
     std::cout<<"Done"<<std::endl<<"Placing entities: ";
 
@@ -158,4 +166,25 @@ void Game::createPath(char** map, int x, int y, int rem,int prev){
                 break;
         }
     }
+}
+
+void Game::reload(){
+    clearEntities(_ELHead);
+
+    _ELHead = NULL;
+
+    addEntity(_player1);
+
+    createMap();
+}
+
+void Game::clearEntities(EntityList* _head){
+    if(_head == NULL) return;
+
+    clearEntities(_head->_next);
+
+    if(_head->_e->team != 1)
+        delete(_head->_e);
+
+    delete(_head);
 }
