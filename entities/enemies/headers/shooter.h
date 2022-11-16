@@ -15,7 +15,7 @@ class Shooter : public Entity{
         char state;
 
         Shooter(SDL_Renderer* _r,int x, int y) : Entity(_r, x,y, 45, 45){
-            team = -1;
+            team = TEAM_ENEMY;
 
             pos.r = 255;
             pos.g = 0;

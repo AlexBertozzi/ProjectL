@@ -29,7 +29,7 @@ void Shooter::switchMode(EntityList* _head){
 
     switchMode(_head->_next);
 
-    if(_head->_e->team == 1){
+    if(_head->_e->team == TEAM_PLAYER){
 
         if(canSee(_head->_e, game._ELHead)){
 
@@ -64,7 +64,7 @@ void Shooter::move(double mod){
 
 void Shooter::collided(Entity* _e){
 
-    if(_e->team == 0 || _e->team == -1){
+    if(_e->team == TEAM_TERRAIN || _e->team == TEAM_ENEMY){
 
         if((pos.fx+ (2*pos.fw/3)) <= (_e->pos.fx)){
 
@@ -81,7 +81,7 @@ void Shooter::collided(Entity* _e){
         }
     }
 
-    if(_e->team >0){
+    if(_e->team >= TEAM_PLAYER){
         hp -= _e->contactDamage;
     }
 
@@ -90,7 +90,7 @@ void Shooter::collided(Entity* _e){
 bool Shooter::canSee(Entity* _e, EntityList* _el){
     if(_el == NULL) return true;
 
-    if(_el->_e->team == 0){
+    if(_el->_e->team == TEAM_TERRAIN){
 
         bool result = ((pos.fx <= _el->_e->pos.fx) && (_e->pos.fx <= _el->_e->pos.fx)) || 
                         (((pos.fy+pos.fh) >= (_el->_e->pos.fy+_el->_e->pos.fh)) && ((_e->pos.fy+_e->pos.fh) >= (_el->_e->pos.fy+_el->_e->pos.fh))) ||

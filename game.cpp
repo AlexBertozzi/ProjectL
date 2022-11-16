@@ -190,7 +190,7 @@ void Game::clearEntities(EntityList* _head){
 
     clearEntities(_head->_next);
 
-    if(_head->_e->team != 1)
+    if(_head->_e->team != TEAM_PLAYER)
         delete(_head->_e);
 
     delete(_head);

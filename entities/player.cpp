@@ -37,7 +37,7 @@ void Player::move(double mod){
 }
 
 void Player::collided(Entity* _e){
-    if(_e->team == 0){
+    if(_e->team == TEAM_TERRAIN || _e->team == TEAM_ENEMY){
 
         if((pos.fx+ (2*pos.fw/3)) <= (_e->pos.fx)){
 

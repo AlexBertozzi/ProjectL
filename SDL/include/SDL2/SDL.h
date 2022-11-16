@@ -64,6 +64,7 @@
 #include "SDL_video.h"
 #include "SDL_locale.h"
 #include "SDL_misc.h"
+#include <teams.h>
 
 #include "begin_code.h"
 /* Set up for C function definitions, even when using C++ */

@@ -22,6 +22,8 @@ void Entity::show(){
 
 void Entity::collision(Entity* _e){
 
+    if(_e == this) return;
+
     if((_e->pos.fx < pos.fx+pos.fw) && (_e->pos.fx+_e->pos.fw > pos.fx)){
         if((_e->pos.fy < pos.fy+pos.fh) && (_e->pos.fy+_e->pos.fh > pos.fy)){
 
