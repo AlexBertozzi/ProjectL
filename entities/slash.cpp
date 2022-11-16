@@ -13,15 +13,7 @@ void Slash::update(double mod){
     Hitbox::update(mod);
 
     if(!alive && (_next != NULL)){
-            game.addEntity(_next);
-    }
-}
-
-void Slash::collided(Entity* _e){
-    Hitbox::collided(_e);
-
-    if(!alive){
-        delete(_next);
+        game.addEntity(_next);
         _next = NULL;
     }
 }

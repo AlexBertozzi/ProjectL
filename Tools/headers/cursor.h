@@ -1,7 +1,9 @@
 #pragma once
-
+#include <texture.h>
 #include <string>
 #include <SDL.h>
+
+extern TextureHandler textures;
 
 class Cursor{
 
@@ -27,9 +29,9 @@ class Cursor{
             pos.h = 30;
 
             _renderer = NULL;
+
+            _texture = textures._cursor;
         }
 
         void show();
-
-        void load(std::string path);
 };

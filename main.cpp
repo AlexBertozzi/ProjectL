@@ -2,13 +2,14 @@
 #include <SDL.h>
 #include <camera.h>
 #include <game.h>
+#include <texture.h>
 
 const int SCREENWIDTH = 1280;
 const int SCREENHEIGHT = 768;
 
-Game game;
-
+TextureHandler textures;
 Camera camera;
+Game game;
 
 int main(int argc, char**){
 

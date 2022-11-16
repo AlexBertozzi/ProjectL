@@ -7,15 +7,6 @@
 
 extern Camera camera;
 
-void Cursor::load(std::string path){
-
-    SDL_Surface* _surf = IMG_Load(path.c_str());
-
-    _texture = SDL_CreateTextureFromSurface(_renderer, _surf);
-
-    SDL_FreeSurface(_surf);
-}
-
 void Cursor::show(){
     SDL_SetRenderDrawColor(_renderer, 0, 255, 0, 255);
 

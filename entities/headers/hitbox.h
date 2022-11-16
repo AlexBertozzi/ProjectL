@@ -34,7 +34,7 @@ class Hitbox : public Entity{
             this->duration = duration;
         }
 
-        Hitbox(SDL_Renderer* _r,int x, int y, int w, int h, int team, float oSpeed, float vSpeed, float duration, float damage, Entity* _e) : Entity(_r, x,y,w,h){
+        Hitbox(SDL_Renderer* _r,int x, int y, int w, int h, int team, float oSpeed, float vSpeed, float duration, float damage, Entity* _e) : Entity(_r, _e->pos.fx,_e->pos.fy,w,h){
             this->team = team;
 
             orizontalSpeed = oSpeed;

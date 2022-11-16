@@ -26,9 +26,4 @@ class Slash : public Hitbox{
         Slash* concat(Hitbox* _h);
 
         void update(double mod);
-
-        void stopAll(Slash* _next);
-        void stopAll(Hitbox* _next);
-
-        void collided(Entity* _e);
 };

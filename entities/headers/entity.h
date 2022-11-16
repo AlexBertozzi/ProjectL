@@ -37,7 +37,7 @@ class Entity{
             pos.b = 255;
         }
 
-        void collision(Entity* _e);
+        virtual void collision(Entity* _e);
 
         virtual void collided(Entity* _e);
 

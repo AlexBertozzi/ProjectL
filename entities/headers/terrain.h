@@ -1,6 +1,9 @@
 #pragma once
+#include <texture.h>
 #include <entity.h>
 #include <string>
+
+extern TextureHandler textures;
 
 class Terrain : public Entity{
 
@@ -13,10 +16,8 @@ class Terrain : public Entity{
             pos.r = 130;
             pos.b = 12;
             pos.g = 41;
-            load("png/terrain.png");
+            _texture = textures._terrain;
         }
-
-        void load(std::string path);
 
         void show();
 };

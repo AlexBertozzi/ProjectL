@@ -5,6 +5,10 @@
 
 extern const int SCREENHEIGHT;
 extern const int SCREENWIDTH;
+extern const int CELLWIDTH ;
+extern const int CELLHEIGHT;
+extern const int MAPWIDTH;
+extern const int MAPHEIGHT;
 extern Camera camera;
 
 void Game::updateAllEntities(EntityList* &_head, float mod){
@@ -84,4 +88,74 @@ void Game::addEntity(Entity* _e){
     _el->_next = _ELHead;
 
     _ELHead = _el;
+}
+
+void Game::createMap(){
+
+    std::cout<<"Initializing map: ";
+
+    char** map = new char*[MAPWIDTH];
+
+    for(int x= 0; x< MAPWIDTH; x++){
+
+        map[x] = new char[MAPHEIGHT];
+
+        for(int y= 0; y< MAPHEIGHT; y++){
+            map[x][y] = 'T';
+        }
+    }
+
+    std::cout<<"Done"<<std::endl<<"Creating paths: ";
+
+    createPath(map,MAPWIDTH/2,MAPHEIGHT/2,130,0);
+    createPath(map,MAPWIDTH/2,MAPHEIGHT/2,130,1);
+    createPath(map,MAPWIDTH/2,MAPHEIGHT/2,130,2);
+    createPath(map,MAPWIDTH/2,MAPHEIGHT/2,130,3);
+
+    std::cout<<"Done"<<std::endl<<"Placing entities: ";
+
+    for(int x= 0; x< MAPWIDTH; x++){
+
+        for(int y= 0; y< MAPHEIGHT; y++){
+            
+            switch(map[x][y]){
+                case 'T':
+                    addEntity(new Terrain(_renderer, (x*CELLWIDTH), (y*CELLHEIGHT), CELLWIDTH, CELLHEIGHT));
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    std::cout<<"Done"<<std::endl;
+
+    _player1->pos.fx = (MAPWIDTH * CELLWIDTH)/2;
+    _player1->pos.fy = (MAPHEIGHT * CELLHEIGHT)/2;
+
+}
+
+void Game::createPath(char** map, int x, int y, int rem,int prev){
+    if(x >= 0 && x < MAPWIDTH && y >= 0 && y < MAPHEIGHT && rem >= 0){
+        map[x][y] = ' ';
+
+        int next = rand()%4;
+
+        while(next == prev) next = rand()%4;
+
+        switch(next){
+            case 0:
+                createPath(map,x+1,y,rem-1,next);
+                break;
+            case 1:
+                createPath(map,x,y+1,rem-1,next);
+                break;
+            case 2:
+                createPath(map,x-1,y,rem-1,next);
+                break;
+            default:
+                createPath(map,x,y-1,rem-1,next);
+                break;
+        }
+    }
 }

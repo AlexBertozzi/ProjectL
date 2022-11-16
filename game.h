@@ -1,5 +1,6 @@
 #pragma once
 
+#include <texture.h>
 #include <entity.h>
 #include <SDL.h>
 #include <sol.h>
@@ -8,10 +9,19 @@
 #include <cursor.h>
 #include <hud.h>
 #include <shooter.h>
+#include <ctime>
+#include <iostream>
 
 extern const int SCREENWIDTH;
 extern const int SCREENHEIGHT;
 
+const int CELLWIDTH = 60;
+const int CELLHEIGHT = CELLWIDTH;
+
+const int MAPWIDTH = 15;
+const int MAPHEIGHT = MAPWIDTH;
+
+extern TextureHandler textures;
 extern Camera camera;
 
 class Game{
@@ -36,26 +46,28 @@ class Game{
 
         Game(SDL_Renderer* _r){
 
+            srand(time(NULL));
+
             _renderer = _r;
             lastTick = SDL_GetTicks();
             _ELHead = NULL;
 
+            std::cout<<"Loading textures: ";
+            textures.loadAll(_r);
+            std::cout<<"Done"<<std::endl;
+
             cursor = Cursor();
             cursor._renderer = _r;
-            cursor.load("png/crossair_thick.png");
 
-            _player1 = new Sol(_renderer,50,50);
+            _player1 = new Sol(_renderer,-100,-100);
             addEntity(_player1);
+
+            createMap();
             
             hud = HUD();
             hud._tracking = _player1;
             hud._renderer = _r;
-            camera = Camera(_player1,10000,10000);
-
-            addEntity(new Shooter(_r, 700,1000,50,50));
-
-            addEntity(new Terrain(_renderer,SCREENWIDTH/2 + 100,SCREENHEIGHT-50,50,55));
-            addEntity(new Terrain(_renderer,0,SCREENHEIGHT-50,SCREENWIDTH/2 - 100,50));
+            camera = Camera(_player1,MAPWIDTH*CELLWIDTH,MAPHEIGHT*CELLHEIGHT);
         }
 
         void addEntity(Entity* _e);
@@ -67,4 +79,8 @@ class Game{
         void handleEvent(SDL_Event* _event);
 
         void checkCollisions(EntityList* _toCheck, EntityList* _next);
+
+        void createMap();
+
+        void createPath(char** map, int x, int y, int rem, int prev);
 };

@@ -77,22 +77,24 @@ void Sol::slash(){
 
     float arc = 35;
 
-    double modx = arc*cos(angle - 0.2);
-    double mody = arc*sin(angle - 0.2);
+    double modx = arc*cos(angle - 0.4);
+    double mody = arc*sin(angle - 0.4);
 
-    Slash* first = new Slash(_renderer,modx,mody,30,30,2,0,0,0.7,1,this);
+    Slash* _first = new Slash(_renderer,modx,mody,30,30,2,0,0,2,0.8,this);
 
     modx = arc*cos(angle);
     mody = arc*sin(angle);
 
-    first->concat(new Slash(_renderer,modx,mody,30,30,2,0,0,0.7,1,this));
+    Slash* _second = new Slash(_renderer,modx,mody,30,30,2,0,0,2,0.8,this);
 
-    modx = arc*cos(angle + 0.2);
-    mody = arc*sin(angle + 0.2);
+    _first->concat(_second);
 
-    first->concat(new Hitbox(_renderer,modx,mody,30,30,2,0,0,0.7,1,this));
+    modx = arc*cos(angle + 0.4);
+    mody = arc*sin(angle + 0.4);
 
-    game.addEntity(first);
+    _second->concat(new Hitbox(_renderer,modx,mody,30,30,2,0,0,2,0.8,this));
+
+    game.addEntity(_first);
 
     slashCd = 3;
 }
