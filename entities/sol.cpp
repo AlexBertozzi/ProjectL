@@ -65,7 +65,7 @@ void Sol::fire(){
 
     double mody = 5*sin(angle);
 
-    game.addEntity(new Hitbox(_renderer,pos.fx,pos.fy,30,30,2,50*(modx),50*(mody),30,1));
+    game.addEntity(new Hitbox(_renderer,pos.fx,pos.fy,30,30,2,50*(modx),50*(mody),30,1,1));
 
     fireCd = 3;
 }
@@ -80,19 +80,19 @@ void Sol::slash(){
     double modx = arc*cos(angle - 0.4);
     double mody = arc*sin(angle - 0.4);
 
-    Slash* _first = new Slash(_renderer,modx,mody,30,30,2,0,0,2,0.6,this);
+    Slash* _first = new Slash(_renderer,modx,mody,30,30,2,0,0,0.8,3,5,this);
 
     modx = arc*cos(angle);
     mody = arc*sin(angle);
 
-    Slash* _second = new Slash(_renderer,modx,mody,30,30,2,0,0,2,0.6,this);
+    Slash* _second = new Slash(_renderer,modx,mody,30,30,2,0,0,0.8,3,5,this);
 
     _first->concat(_second);
 
     modx = arc*cos(angle + 0.4);
     mody = arc*sin(angle + 0.4);
 
-    _second->concat(new Hitbox(_renderer,modx,mody,30,30,2,0,0,2,0.6,this));
+    _second->concat(new Hitbox(_renderer,modx,mody,30,30,2,0,0,0.8,3,5,this));
 
     game.addEntity(_first);
 
@@ -106,6 +106,7 @@ void Sol::show(){
 void Sol::collided(Entity* _e){
     if(_e->team <0){
         hp -= _e->contactDamage;
+        IFrames = 10;
     }
 
     Player::collided(_e);

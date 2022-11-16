@@ -18,7 +18,7 @@ extern const int SCREENHEIGHT;
 const int CELLWIDTH = 60;
 const int CELLHEIGHT = CELLWIDTH;
 
-const int MAPWIDTH = 15;
+const int MAPWIDTH = 25;
 const int MAPHEIGHT = MAPWIDTH;
 
 extern TextureHandler textures;

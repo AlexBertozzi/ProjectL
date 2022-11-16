@@ -111,14 +111,14 @@ void Game::createMap(){
 
     std::cout<<"Done"<<std::endl<<"Creating paths: ";
 
-    createPath(map,MAPWIDTH/2,MAPHEIGHT/2,200,0);
-    createPath(map,MAPWIDTH/2,MAPHEIGHT/2,200,1);
-    createPath(map,MAPWIDTH/2,MAPHEIGHT/2,200,2);
-    createPath(map,MAPWIDTH/2,MAPHEIGHT/2,200,3);
-    createPath(map,MAPWIDTH/2,MAPHEIGHT/2,200,0);
-    createPath(map,MAPWIDTH/2,MAPHEIGHT/2,200,1);
-    createPath(map,MAPWIDTH/2,MAPHEIGHT/2,200,2);
-    createPath(map,MAPWIDTH/2,MAPHEIGHT/2,200,3);
+    createPath(map,MAPWIDTH/2,MAPHEIGHT/2,400,0);
+    createPath(map,MAPWIDTH/2,MAPHEIGHT/2,400,1);
+    createPath(map,MAPWIDTH/2,MAPHEIGHT/2,400,2);
+    createPath(map,MAPWIDTH/2,MAPHEIGHT/2,400,3);
+    createPath(map,MAPWIDTH/2,MAPHEIGHT/2,400,0);
+    createPath(map,MAPWIDTH/2,MAPHEIGHT/2,400,1);
+    createPath(map,MAPWIDTH/2,MAPHEIGHT/2,400,2);
+    createPath(map,MAPWIDTH/2,MAPHEIGHT/2,400,3);
 
     std::cout<<"Done"<<std::endl<<"Placing entities: ";
 
@@ -129,6 +129,9 @@ void Game::createMap(){
             switch(map[x][y]){
                 case 'T':
                     addEntity(new Terrain(_renderer, (x*CELLWIDTH), (y*CELLHEIGHT), CELLWIDTH, CELLHEIGHT));
+                    break;
+                case 'S':
+                    addEntity(new Shooter(_renderer,(x*CELLWIDTH), (y*CELLHEIGHT)));
                     break;
                 default:
                     break;
@@ -145,7 +148,11 @@ void Game::createMap(){
 
 void Game::createPath(char** map, int x, int y, int rem,int prev){
     if(x >= 0 && x < MAPWIDTH && y >= 0 && y < MAPHEIGHT && rem >= 0){
-        map[x][y] = ' ';
+
+        if(rand()%10000 < 50)
+            map[x][y] = 'S';
+        else
+            map[x][y] = ' ';
 
         int next = rand()%4;
 

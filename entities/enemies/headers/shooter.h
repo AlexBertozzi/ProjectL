@@ -14,7 +14,7 @@ class Shooter : public Entity{
 
         char state;
 
-        Shooter(SDL_Renderer* _r,int x, int y, int w, int h) : Entity(_r, x,y, w, h){
+        Shooter(SDL_Renderer* _r,int x, int y) : Entity(_r, x,y, 45, 45){
             team = -1;
 
             pos.r = 255;
@@ -28,7 +28,7 @@ class Shooter : public Entity{
             lastPlayerPos.w = 10;
             lastPlayerPos.h = 10;
 
-            maxHp = 3;
+            maxHp = 5;
             hp = maxHp;
 
             shootCd = 0;

@@ -64,7 +64,7 @@ void Shooter::move(double mod){
 
 void Shooter::collided(Entity* _e){
 
-    if(_e->team == 0){
+    if(_e->team == 0 || _e->team == -1){
 
         if((pos.fx+ (2*pos.fw/3)) <= (_e->pos.fx)){
 
@@ -132,7 +132,7 @@ void Shooter::moveAwayAndShoot(){
     speedY = ((dist < safe) ? -30 : 20) *sin(angle);
 
     if(dist > safe && shootCd <= 0){
-        game.addEntity(new Hitbox(_renderer,pos.fx,pos.fy,30,30,-2,25*(cos(angle)),25*(sin(angle)),30,1));
+        game.addEntity(new Hitbox(_renderer,pos.fx,pos.fy,30,30,-2,25*(cos(angle)),25*(sin(angle)),30,1,0));
         shootCd = 20;
     }
 }
