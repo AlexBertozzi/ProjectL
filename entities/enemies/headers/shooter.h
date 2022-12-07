@@ -1,5 +1,6 @@
 #pragma once
 
+#include <teams.h>
 #include <entity.h>
 #include <SDL.h>
 #include <game.h>
@@ -35,9 +36,9 @@ class Shooter : public Entity{
             state = 'i'; //idle
         }
 
-        void move(double mod);
+        void move(double mod, EntityList* _h);
 
-        void update(double mod);
+        void update(double mod, EntityList* _h);
 
         void switchMode(EntityList* _head);
 
@@ -47,5 +48,5 @@ class Shooter : public Entity{
 
         void collided(Entity* _e);
 
-        bool canSee(Entity* _e,EntityList* _el);
+        bool canSee(double dist, double myAngle, Entity* _e,EntityList* _el);
 };

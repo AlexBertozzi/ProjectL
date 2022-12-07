@@ -1,14 +1,16 @@
-typedef enum {
+#pragma once
 
-    TEAM_ENEMY_PRJECTILE = -2,
-    TEAM_ENEMY = -1,
+enum Team{
+
+    TEAM_ENEMY_PRJECTILE,
     //must be last of enemy team
+    TEAM_ENEMY,
 
     //all non player or enemy goes in the middle
-    TEAM_TERRAIN = 0,
-    TEAM_DECORATION = 1, //usually no collisions
+    TEAM_TERRAIN,
+    TEAM_DECORATION, //usually no collisions
 
     //must be first of allied team
-    TEAM_PLAYER = 2,
-    TEAM_PLAYER_PROJECTILE = 3
+    TEAM_PLAYER,
+    TEAM_PLAYER_PROJECTILE
 };

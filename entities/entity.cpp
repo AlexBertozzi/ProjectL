@@ -4,7 +4,7 @@
 
 extern Camera camera;
 
-void Entity::update(double mod){
+void Entity::update(double mod, EntityList* _e){
     show();
 }
 
@@ -32,6 +32,14 @@ void Entity::collision(Entity* _e){
         }
     }
 
+}
+
+void Entity::checkCollisions(EntityList* _entities){
+    if(_entities == NULL) return;
+
+    collision(_entities->_e);
+
+    checkCollisions(_entities->_next);
 }
 
 void Entity::collided(Entity* _e){

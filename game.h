@@ -1,5 +1,6 @@
 #pragma once
 
+#include <teams.h>
 #include <texture.h>
 #include <entity.h>
 #include <SDL.h>
@@ -32,15 +33,13 @@ class Game{
 
         int lastTick;
 
-        void loop(SDL_Event* _event);
-
-        void updateAllEntities(EntityList* &_head, float mod);
-
         Player* _player1;
 
         HUD hud;
 
         Cursor cursor;
+
+        SDL_Renderer* _renderer;
 
         Game(){}
 
@@ -72,13 +71,13 @@ class Game{
 
         void addEntity(Entity* _e);
 
-        SDL_Renderer* _renderer;
+        void loop(SDL_Event* _event);
+
+        void updateAllEntities(EntityList* &_head, float mod);
 
     private:        
 
         void handleEvent(SDL_Event* _event);
-
-        void checkCollisions(EntityList* _toCheck, EntityList* _next);
 
         void createMap();
 

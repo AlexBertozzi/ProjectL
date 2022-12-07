@@ -9,8 +9,8 @@ Slash* Slash::concat(Hitbox* _h){
     return this;
 }
 
-void Slash::update(double mod){
-    Hitbox::update(mod);
+void Slash::update(double mod, EntityList* _h){
+    Hitbox::update(mod,_h);
 
     if(!alive && (_next != NULL)){
         game.addEntity(_next);

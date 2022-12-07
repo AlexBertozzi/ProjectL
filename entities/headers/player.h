@@ -22,16 +22,16 @@ class Player : public Entity{
             left = false;
             right = false;
             speed = 70;
-            team = 1;
+            team = TEAM_PLAYER;
             sleep = 0;
             status = ' ';
             maxHp = 0;
             hp = maxHp;
         }
 
-        virtual void update(double mod);
+        virtual void update(double mod, EntityList* _h);
 
-        virtual void move(double mod);
+        virtual void move(double mod, EntityList* _h);
 
         virtual void collided(Entity* _e);
 

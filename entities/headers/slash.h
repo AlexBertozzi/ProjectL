@@ -10,11 +10,11 @@ class Slash : public Hitbox{
 
         Hitbox* _next;
 
-        Slash(SDL_Renderer* _r,int x, int y, int w, int h, int team, float oSpeed, float vSpeed, float duration, float damage, float knock) : Hitbox(_r,x,y,w,h,team,oSpeed,vSpeed,duration,damage,knock){
+        Slash(SDL_Renderer* _r,int x, int y, int w, int h, Team team, float oSpeed, float vSpeed, float duration, float damage, float knock) : Hitbox(_r,x,y,w,h,team,oSpeed,vSpeed,duration,damage,knock){
             _next = NULL;
         }
 
-        Slash(SDL_Renderer* _r,int x, int y, int w, int h, int team, float oSpeed, float vSpeed, float duration, float damage, float knock, Entity* _e) : Hitbox(_r,x,y,w,h,team,oSpeed,vSpeed,duration,damage,knock, _e){
+        Slash(SDL_Renderer* _r,int x, int y, int w, int h, Team team, float oSpeed, float vSpeed, float duration, float damage, float knock, Entity* _e) : Hitbox(_r,x,y,w,h,team,oSpeed,vSpeed,duration,damage,knock, _e){
             _next = NULL;
         }
 
@@ -25,5 +25,5 @@ class Slash : public Hitbox{
 
         Slash* concat(Hitbox* _h);
 
-        void update(double mod);
+        void update(double mod, EntityList* _h);
 };

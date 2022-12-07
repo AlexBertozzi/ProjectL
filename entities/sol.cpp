@@ -1,3 +1,4 @@
+#include <teams.h>
 #include <sol.h>
 #include <game.h>
 #include <hitbox.h>
@@ -9,7 +10,7 @@
 extern Game game;
 extern Camera camera;
 
-void Sol::update(double mod){
+void Sol::update(double mod, EntityList* _h){
 
     if(dashCd>=0) dashCd -= mod;
     if(fireCd>=0) fireCd -= mod;
@@ -19,10 +20,10 @@ void Sol::update(double mod){
     if(leftMouse) fire();
     else if(rightMouse) slash();
 
-    Player::update(mod);
+    Player::update(mod,_h);
 }
 
-void Sol::move(double mod){
+void Sol::move(double mod, EntityList* _h){
 
     if(inertia > 0){
 
@@ -35,7 +36,7 @@ void Sol::move(double mod){
     }
     
 
-    Player::move(mod);
+    Player::move(mod,_h);
 }
 
 void Sol::specialDown(int key){
@@ -104,7 +105,7 @@ void Sol::show(){
 }   
 
 void Sol::collided(Entity* _e){
-    if(_e->team < TEAM_ENEMY){
+    if(_e->team <= TEAM_ENEMY){
         hp -= _e->contactDamage;
         IFrames = 10;
     }

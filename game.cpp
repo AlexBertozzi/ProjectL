@@ -14,9 +14,7 @@ extern Camera camera;
 void Game::updateAllEntities(EntityList* &_head, float mod){
     if(_head == NULL) return;
 
-    _head->_e->update(mod);
-
-    checkCollisions(_head,_head->_next);
+    _head->_e->update(mod,_ELHead);
 
     if(_head->_e->alive){
 
@@ -34,19 +32,11 @@ void Game::updateAllEntities(EntityList* &_head, float mod){
     }
 }
 
-void Game::checkCollisions(EntityList* _toCheck, EntityList* _next){
-
-    if(_toCheck == NULL || _next == NULL){return;}
-
-    _toCheck->_e->collision(_next->_e);
-
-    checkCollisions(_toCheck,_next->_next);
-}
-
 void Game::loop(SDL_Event* _event){
     handleEvent(_event);
 
     double dT = (SDL_GetTicks64()-lastTick)/100.0f;
+
     lastTick = SDL_GetTicks64();
     
     SDL_SetRenderDrawColor(_renderer, 0, 0, 0, 255);

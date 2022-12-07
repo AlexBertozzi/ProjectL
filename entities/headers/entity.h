@@ -1,6 +1,9 @@
 #pragma once
 #include <SDL.h>
 #include <rect.h>
+#include <teams.h>
+
+struct EntityList;
 
 class Entity{
 
@@ -8,11 +11,11 @@ class Entity{
 
         Rect pos;
 
-        int team;
+        Team team;
 
         SDL_Renderer* _renderer;
 
-        virtual void update(double mod);
+        virtual void update(double mod, EntityList* _head);
 
         virtual void show();
 
@@ -27,7 +30,7 @@ class Entity{
             pos.fw = w;
 
             _renderer = _r;
-            team = -1;
+            team = TEAM_DECORATION;
             alive = true;
 
             contactDamage = 0;
@@ -40,6 +43,8 @@ class Entity{
         virtual ~Entity(){
             return;
         }
+
+        virtual void checkCollisions(EntityList* _entities);
 
         virtual void collision(Entity* _e);
 

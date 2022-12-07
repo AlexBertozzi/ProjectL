@@ -1,3 +1,4 @@
+#include <teams.h>
 #include <player.h>
 #include <iostream>
 #include <game.h>
@@ -6,28 +7,57 @@
 extern const int SCREENHEIGHT;
 extern const int SCREENWIDTH;
 
-void Player::update(double mod){
+void Player::update(double mod, EntityList* _h){
 
     if(sleep >0) sleep -= mod;
 
-    move(mod);
+    move(mod,_h);
 
-    Entity::update(mod);
+    Entity::update(mod,_h);
 }
 
-void Player::move(double mod){
+void Player::move(double mod, EntityList* _h){
+
+    double distX = 0, distY = 0;
 
     if(up){
-        pos.fy -= (speed * mod) / (left || right ? 2 : 1);
+        distY -= (speed * mod) / (left || right ? 2 : 1);
     }
     if(left){
-        pos.fx -= (speed * mod) / (up || down ? 2 : 1);
+        distX -= (speed * mod) / (up || down ? 2 : 1);
     } 
     if(down){
-        pos.fy += (speed * mod) / (left || right ? 2 : 1);
+        distY += (speed * mod) / (left || right ? 2 : 1);
     } 
     if(right){
-        pos.fx += (speed * mod) / (up || down ? 2 : 1);
+        distX += (speed * mod) / (up || down ? 2 : 1);
+    }
+
+    while(distX != 0 || distY != 0){
+
+        if(distX >= pos.fw){
+            pos.fx += pos.fw;
+            distX -= pos.fw;
+        }else if(distX <= -pos.fw){
+            pos.fx -= pos.fw;
+            distX += pos.fw;
+        }else{
+            pos.fx += distX;
+            distX = 0;
+        }
+
+        if(distY >= pos.fh){
+            pos.fy += pos.fh;
+            distY -= pos.fh;
+        }else if(distY <= -pos.fh){
+            pos.fy -= pos.fh;
+            distY += pos.fh;
+        }else{
+            pos.fy += distY;
+            distY = 0;
+        }
+
+        Entity::checkCollisions(_h);
     }   
         
     if(pos.fx < 0) pos.fx = 0;

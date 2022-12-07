@@ -29,9 +29,9 @@ class Sol : public Player{
             hp = 5;
         }
 
-        void update(double mod);
+        void update(double mod, EntityList* _h);
 
-        void move(double mod);
+        void move(double mod, EntityList* _h);
 
         void dash();
 

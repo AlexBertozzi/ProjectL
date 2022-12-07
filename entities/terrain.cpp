@@ -4,7 +4,7 @@
 #include <camera.h>
 
 extern Camera camera;
-
+/*
 void Terrain::show(){
     pos.x = pos.fx - camera.modX;
     pos.y = pos.fy - camera.modY;
@@ -12,4 +12,4 @@ void Terrain::show(){
     pos.h = pos.fh;
 
     SDL_RenderCopy(_renderer,_texture, NULL, &pos);
-}
+}*/

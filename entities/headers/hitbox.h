@@ -16,7 +16,7 @@ class Hitbox : public Entity{
 
         double duration, knockback;
 
-        Hitbox(SDL_Renderer* _r,int x, int y, int w, int h, int team, float oSpeed, float vSpeed, float duration, float damage ,float knock) : Entity(_r, x,y,w,h){
+        Hitbox(SDL_Renderer* _r,int x, int y, int w, int h, Team team, float oSpeed, float vSpeed, float duration, float damage ,float knock) : Entity(_r, x,y,w,h){
             this->team = team;
 
             orizontalSpeed = oSpeed;
@@ -36,8 +36,11 @@ class Hitbox : public Entity{
             this->duration = duration;
         }
 
-        Hitbox(SDL_Renderer* _r,int x, int y, int w, int h, int team, float oSpeed, float vSpeed, float duration, float damage, float knock, Entity* _e) : Entity(_r, _e->pos.fx,_e->pos.fy,w,h){
+        Hitbox(SDL_Renderer* _r,int x, int y, int w, int h, Team team, float oSpeed, float vSpeed, float duration, float damage, float knock, Entity* _e) : Entity(_r, 0,0,w,h){
             this->team = team;
+
+            pos.fx = _e->pos.fx + x;
+            pos.fy = _e->pos.fy + y;
 
             orizontalSpeed = oSpeed;
             verticalSpeed = vSpeed;
@@ -60,9 +63,9 @@ class Hitbox : public Entity{
             return;
         }
 
-        virtual void update(double mod);
+        virtual void update(double mod, EntityList* _h);
 
-        void move(double mod);
+        void move(double mod, EntityList* _h);
 
         virtual void collided(Entity* _e);
 
