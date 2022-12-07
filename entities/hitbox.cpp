@@ -26,7 +26,7 @@ void Hitbox::move(double mod, EntityList* _h){
         distY = _following->pos.fy + followDistanceY - pos.fy;
     }
 
-    while(distX != 0 && distY != 0){
+    while(distX != 0 || distY != 0){
 
         if(distX >= pos.fw){
             pos.fx += pos.fw;

@@ -71,7 +71,7 @@ void Shooter::move(double mod, EntityList* _h){
 
     distY += speedY * mod;
 
-    while(distX != 0 && distY != 0){
+    while(distX != 0 || distY != 0){
 
         if(distX >= pos.fw){
             pos.fx += pos.fw;
@@ -146,27 +146,32 @@ bool Shooter::canSee(double dist, double myAngle,Entity* _e, EntityList* _el){
 
             y = (_t->pos.fy)- (_e->pos.fy + (_e->pos.fh /2));
 
-            double hisAngle1 = atan2( x, y);
+            double tAngle1 = atan2( x, y);
 
             x = (_t->pos.fx)- (_e->pos.fx + (_e->pos.fw /2));
 
             y = (_t->pos.fy + (_t->pos.fh))- (_e->pos.fy + (_e->pos.fh /2));
 
-            double hisAngle3 = atan2(x , y);
+            double tAngle3 = atan2(x , y);
 
             x = (_t->pos.fx + (_t->pos.fw))- (_e->pos.fx + (_e->pos.fw /2));
 
             y = (_t->pos.fy)- (_e->pos.fy + (_e->pos.fh /2));
 
-            double hisAngle2 = atan2( x, y);
+            double tAngle2 = atan2( x, y);
 
             x = (_t->pos.fx + (_t->pos.fw))- (_e->pos.fx + (_e->pos.fw /2));
 
             y = (_t->pos.fy + (_t->pos.fh))- (_e->pos.fy + (_e->pos.fh /2));
 
-            double hisAngle4 = atan2(x , y);
+            double tAngle4 = atan2(x , y);
 
-            result = (hisAngle1 > myAngle && hisAngle2 > myAngle && hisAngle3 > myAngle && hisAngle4 > myAngle) || (hisAngle1 < myAngle && hisAngle2 < myAngle && hisAngle3 < myAngle && hisAngle4 < myAngle);
+            double myCos = cos(myAngle);
+            double mySin = sin(myAngle);
+
+            result = (cos(tAngle1) > myCos && cos(tAngle2) > myCos && cos(tAngle3) > myCos && cos(tAngle4) > myCos) || (cos(tAngle1) < myCos && cos(tAngle2) < myCos && cos(tAngle3) < myCos && cos(tAngle4) < myCos);
+
+            result = result && ((sin(tAngle1) > mySin && sin(tAngle2) > mySin && sin(tAngle3) > mySin && sin(tAngle4) > mySin) || (sin(tAngle1) < mySin && sin(tAngle2) < mySin && sin(tAngle3) < mySin && sin(tAngle4) < mySin));
 
             if(!result){
                 _t->pos.r = 0;
