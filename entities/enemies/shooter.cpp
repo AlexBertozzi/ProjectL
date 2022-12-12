@@ -138,42 +138,45 @@ bool Shooter::canSee(double dist, double myAngle,Entity* _e, EntityList* _el){
 
         double dist2 = sqrt((a*a) + (b*b));
 
-        if(dist2 < dist){
+        if(dist2 <= dist){
 
             double x,y;
 
-            x = (_t->pos.fx)- (_e->pos.fx + (_e->pos.fw /2));
+            double ex = (_e->pos.fx + (_e->pos.fw /2));
+            double ey = (_e->pos.fy + (_e->pos.fh /2));
 
-            y = (_t->pos.fy)- (_e->pos.fy + (_e->pos.fh /2));
+            x = (_t->pos.fx)- ex;
+
+            y = (_t->pos.fy)- ey;
 
             double tAngle1 = atan2( x, y);
 
-            x = (_t->pos.fx)- (_e->pos.fx + (_e->pos.fw /2));
+            x = (_t->pos.fx)- ex;
 
-            y = (_t->pos.fy + (_t->pos.fh))- (_e->pos.fy + (_e->pos.fh /2));
+            y = (_t->pos.fy + (_t->pos.fh))- ey;
 
             double tAngle3 = atan2(x , y);
 
-            x = (_t->pos.fx + (_t->pos.fw))- (_e->pos.fx + (_e->pos.fw /2));
+            x = (_t->pos.fx + (_t->pos.fw))- ex;
 
-            y = (_t->pos.fy)- (_e->pos.fy + (_e->pos.fh /2));
+            y = (_t->pos.fy)- ey;
 
             double tAngle2 = atan2( x, y);
 
-            x = (_t->pos.fx + (_t->pos.fw))- (_e->pos.fx + (_e->pos.fw /2));
+            x = (_t->pos.fx + (_t->pos.fw))- ex;
 
-            y = (_t->pos.fy + (_t->pos.fh))- (_e->pos.fy + (_e->pos.fh /2));
+            y = (_t->pos.fy + (_t->pos.fh))- ey;
 
             double tAngle4 = atan2(x , y);
 
-            double myCos = cos(myAngle);
-            double mySin = sin(myAngle);
+            double myCos = cos(myAngle) +1;
+            double mySin = sin(myAngle) +1;
 
-            result = (cos(tAngle1) > myCos && cos(tAngle2) > myCos && cos(tAngle3) > myCos && cos(tAngle4) > myCos) || (cos(tAngle1) < myCos && cos(tAngle2) < myCos && cos(tAngle3) < myCos && cos(tAngle4) < myCos);
+            result = !((cos(tAngle1)+1 > myCos && cos(tAngle2)+1 > myCos && cos(tAngle3)+1 > myCos && cos(tAngle4)+1 > myCos) || (cos(tAngle1)+1 < myCos && cos(tAngle2)+1 < myCos && cos(tAngle3)+1 < myCos && cos(tAngle4)+1 < myCos));
 
-            result = result && ((sin(tAngle1) > mySin && sin(tAngle2) > mySin && sin(tAngle3) > mySin && sin(tAngle4) > mySin) || (sin(tAngle1) < mySin && sin(tAngle2) < mySin && sin(tAngle3) < mySin && sin(tAngle4) < mySin));
+            result = result || !(((sin(tAngle1)+1 > mySin && sin(tAngle2)+1 > mySin && sin(tAngle3)+1 > mySin && sin(tAngle4)+1 > mySin) || (sin(tAngle1)+1 < mySin && sin(tAngle2)+1 < mySin && sin(tAngle3)+1 < mySin && sin(tAngle4)+1 < mySin)));
 
-            if(!result){
+            if(result){
                 _t->pos.r = 0;
                 return false;   
             }
