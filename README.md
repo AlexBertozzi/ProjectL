@@ -9,4 +9,4 @@ To compile and run use Compile.bat
 
 All dll must be in the same folder as the .exe, as currently (I think)
 
-For now framerate is not capped and shouldn't impact on game mechanics, but if it drops too much movement can become clunky and collision might be missing
+Framerate is not capped, wait next update to try it.
